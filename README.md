@@ -9,7 +9,7 @@ servidor embebido.
 
 <h2>¿ Como usarlo ?</h2>
 
-1) Descargue e importe a su proyecto todas las librerias .jar contenidas en el directorio PongeeFramework.
+1) Descargue e importe a su proyecto todas las librerias .jar contenidas en el fichero PongeeFramework.zip.
 
 2) Con el fin de hacer mas facil su configuracion, "Pongee" toma esta de un fichero .json, el cual debe tener la siguiente
 estructura:
@@ -81,7 +81,7 @@ de ficheros predeterminada, la cual se puede observar a continuacion:
   </li>
 </ul>
 <h2>Ejemplo</h2>
-Para lograr un entendimiento mas acelerado acerca del modo de uso y configuracion de Pongee, se ha creado un pequeño ejemplo,
+Para lograr un entendimiento mas acelerado acerca del modo de uso y configuracion de Pongee, se ha creado un pequeño ejemplo (PongeeExample.zip),
 en donde se puede observar claramente, los items mencionados anteriormente.
 
 
