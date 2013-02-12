@@ -55,7 +55,10 @@ public class ServletHandlerPG extends HttpServlet{
             HttpRequestPG httpRPG = new HttpRequestPG(req);
             HttpResponsePG httpResPG = new HttpResponsePG(resp);
             String[] spl = req.getPathInfo().split("/");
-            String firstStringURL =  spl[1];
+            String firstStringURL =  "/";
+            if ( !req.getPathInfo().equals("/")) {
+                firstStringURL = spl[1];
+            }
             if ( !firstStringURL .equals("static")) {
 
                 for ( RestServicesInfo rs : this.restServicesGET) {

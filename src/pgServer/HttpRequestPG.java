@@ -19,7 +19,7 @@ public class HttpRequestPG{
         this.request = request;
     }
 
-    public void createQueryParams(String urlQueryParams) {System.out.println("createQueryParams : "+urlQueryParams);
+    public void createQueryParams(String urlQueryParams) {
         this.urlMatcher = new URLMatcher( urlQueryParams , request.getPathInfo() );
     }
 
