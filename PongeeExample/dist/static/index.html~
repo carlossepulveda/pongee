@@ -1,0 +1,25 @@
+<html>
+ <head>
+  <title>Inicio APP</title>
+  <link rel="stylesheet" href="/static/css/user.css">
+  <script src="/static/js/jquery.js"></script>
+  <script src="/static/js/site.js"></script>
+ </head>
+ <body>
+  <div class="panel" style="height:90px;width:350px;"> 
+   <img src="/static/ironcat.jpg" style="width:80px;float:left"/>
+   <pre> Carlos Andres Sepulveda Sanchez</pre>
+   <pre> http://github.com/carlossepulveda</pre>
+  </div>
+  <div class="panel">
+   <pre>ID libro : </pre>
+   <input id="idBook" placeholder="Digite id libro" type="text"/> 
+   <button id="btnBook">Ver libro</button>
+  </div>
+  <div class="panel">
+   <pre>ID usuario : </pre>
+   <input id="idUser" placeholder="Digite id usuario" type="text"/> 
+   <button id="btnUser">Ver usuario</button>
+  </div>
+ </body>
+</html>

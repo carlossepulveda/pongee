@@ -2,9 +2,6 @@ build/
 dist/
 libs/
 nbproject/
-pongee/
-pongeelibs/
-static/
 build.xml
 manifiest.mf
 PongeeExample/nbproject

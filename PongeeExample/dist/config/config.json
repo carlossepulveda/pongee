@@ -1,0 +1,21 @@
+{
+	"port" : "3000", 
+	"restServicesInfo" : 
+		[
+			{
+				"method": "GET", 
+				"url":"/",
+				"action":"controllers.Home:getHome"
+			},
+			{
+				"method": "GET", 
+				"url":"/user/:id",
+				"action":"controllers.User:getId"
+			},
+			{
+				"method": "GET", 
+				"url":"/book/:id",
+				"action":"controllers.Book:getId"
+			}
+		] 
+}
