@@ -1,5 +1,0 @@
-Para ejecutar, 
-
-Ubiquese mediante la terminal en el directorio actual y digite el siguiente commando:
-
-	java -jar PongeeExample.jar

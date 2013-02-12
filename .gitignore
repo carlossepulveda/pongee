@@ -4,7 +4,5 @@ libs/
 nbproject/
 build.xml
 manifiest.mf
-PongeeExample/nbproject
-PongeeExample/build
-PongeeExample/build.xml
-PongeeExample/manifest.mf
+PongeeExample
+PongeeFramework
