@@ -1,7 +1,6 @@
-package pgServer;
+package co.sepulveda.pongee;
 
-import java.util.HashMap;
-import java.util.Map;
+import co.sepulveda.pongee.servlet.ServletHandler;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
@@ -11,57 +10,44 @@ import org.eclipse.jetty.servlet.ServletHolder;
 
 /**
  *
- * @author Carlos Andres Sepulveda Sanchez
- * http://github.com/carlossepulveda
+ * @author Carlos Sepulveda
  */
 public class ServerPG {
 
-    private ConfigurationServer configurations;
     private static final String STATE_UP = "up";
     private static final String STATE_DOWN = "down";
+    private final Configuration config;
     private String state;
 
-    public ServerPG() {
-        this.setState(ServerPG.STATE_DOWN);
-        configurations = new ConfigurationServer();
+    public ServerPG(String controllers, int port) {
+        this.config = Configuration.create();
+        config.setControllers(controllers);
+        config.setPort(port);
     }
 
-    public int getPort() {
-        return configurations.getPort();
+    public ServerPG(Configuration configuration) {
+        this.config = configuration;
+        setState(ServerPG.STATE_DOWN);
     }
 
     public void listen() {
-        if ( configurations.getPort() <=0 ){
-            configurations.setPort(3000);
-        }
         try {
-            this.runServer();
+            runServer();
         } catch ( Exception e) {
             System.out.println("Error - Trying run server");
         }
     }
 
-    public void listen( int port ) {
-        if ( port>0) {
-            configurations.setPort(port);
-            listen();
-        } else {
-            System.err.println("Error - Invalid Port");
-        }
-    }
-
     private void runServer () throws Exception {
-        
-        if ( state.equals( ServerPG.STATE_DOWN ) ) {
-            
-            this.setState( ServerPG.STATE_UP );
-            Server server = new Server( configurations.getPort() );
+        if ( state.equals(ServerPG.STATE_DOWN ) ) {
+            setState(ServerPG.STATE_UP );
+            Server server = new Server(config.getPort());
 
             ServletContextHandler context0 = new ServletContextHandler(ServletContextHandler.SESSIONS);
             context0.setContextPath("/");
-            context0.addServlet(
-                    new ServletHolder(new ServletHandlerPG(configurations.getRestServicesInfo())) , "/*"
-                    );
+            ServletHandler svlHandler = new ServletHandler(config);
+            ServletHolder svlHolder = new ServletHolder(svlHandler);
+            context0.addServlet(svlHolder , "/*");
 
             ResourceHandler resource_handler = new ResourceHandler();
             resource_handler.setDirectoriesListed(true);
@@ -77,7 +63,7 @@ public class ServerPG {
             server.start();
             server.join();
             
-            System.out.println("Server running in "+configurations.getPort());
+            System.out.println("Server running in " + config.getPort());
 
         } else {
             System.err.println("Error - Server is running already");
@@ -91,21 +77,4 @@ public class ServerPG {
     private void setState(String state) {
         this.state = state;
     }
-
-    public ConfigurationServer getConfigurations() {
-        return configurations;
-    }
-
-    public void setConfigurations(ConfigurationServer configurations) {
-        this.configurations = configurations;
-    }
-
-    public ServerPG setConfigurationFile ( String fileUrl ) {
-        configurations.setConfigurationFile(fileUrl);
-        return this;
-    }
-
-    
-
-
 }

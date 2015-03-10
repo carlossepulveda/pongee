@@ -6,3 +6,4 @@ build.xml
 manifiest.mf
 PongeeExample
 PongeeFramework
+/target/
