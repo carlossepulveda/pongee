@@ -1,9 +1,9 @@
-<h1>Pongee</h1>
-======
+#Pongee
 
-Micro-framework web java
+A cool micro-framework web implemented in Java, that allows to create a REST server in just a minute. You do not need to configure external content servers or apps containers due to that Pongee is a embedded server. For that reason you just have to write the code and do not worry by the server deployment (You do not need to spend time doing large configurations - Just write code).
 
-<pre>
+## Basic code
+```java
 import co.sepulveda.pongee.Configuration;
 import co.sepulveda.pongee.ServerPG;
 
@@ -11,16 +11,17 @@ public class Main {
 
     public static void main(String[] args) {
         Configuration conf = Configuration.create()
-        	//nombre del paquete que contiene los controladores
                 .withControllers("my.controllers");
+        	    //name of package that contains the endpoints controllers
 
         new ServerPG(conf).listen();
     }
 }
-</pre>
+```
+Server running on 3000 (default port)
 
-Ejemplo GET
-<pre>
+##Controller - GET
+```java
 package my.controllers;
 
 import co.sepulveda.pongee.annotations.GET;
@@ -37,11 +38,13 @@ public class Test {
                 .withBody("Some response");
     }
 }
-</pre>
+```
+Put in the browser [http://localhost:3000/resource](http://localhost:3000/resource)
 
-Ejemplo POST - Lectura del request <br/>
-Request Body : {"name":"Carlos"}
-<pre>
+##Controller - POST
+###Reading request
+POST  /resource  {"name":"Carlos"}
+```java
 package my.controllers;
 
 import co.sepulveda.pongee.annotations.POST;
@@ -53,23 +56,21 @@ import co.sepulveda.pongee.servlet.Response;
 public class Test {
 
     @POST
-    public Response someMehthod(Request request) {
+    public Response singUp(Request request) {
         RegisterForm form = request.parseBody(RegisterForm.class);
         if (form == null) {
-            return Response
-                    .badRequest()
-                    .withBody("Invalid Data");
+            return Response.badRequest().withBody("Invalid Data");
         }
 
         System.out.println("Name : " + registerForm.getName());
 
-        return new Response()
-                .withBody("ok")
-                .withStatus(201);
+        return new Response().withStatus(201).withBody("Record saved successfully");
     }
 }
-</pre>
-<pre>
+```
+```java
+package my.forms;
+
 public class RegisterForm {
     private String name;
     
@@ -80,10 +81,10 @@ public class RegisterForm {
         this.name = name;
     }
 }
-</pre>
+```
 
-Ejemplo renderizando objetos
-<pre>
+##Rendering objects
+```java
 package my.controllers;
 
 import co.sepulveda.pongee.annotations.POST;
@@ -103,8 +104,10 @@ public class Test {
                 .withBody(person);
     }
 }
-</pre>
-<pre>
+```
+```java
+package my.web.entities;
+
 public class Person {
     private String name;
     
@@ -115,4 +118,5 @@ public class Person {
         this.name = name;
     }
 }
-</pre>
+```
+Put in the browser [http://localhost:3000/resource](http://localhost:3000/resource)
