@@ -2,6 +2,18 @@
 
 A cool micro-framework web implemented in Java, that allows to create a REST server in just a minute. You do not need to configure external content servers or apps containers due to that Pongee is a embedded server. For that reason you just have to write the code and do not worry by the server deployment (You do not need to spend time doing large configurations - Just write code).
 
+## Getting started
+You can add the maven dependecy
+
+```xml
+<dependency>
+    <groupId>co.sepulveda</groupId>
+    <artifactId>pongee</artifactId>
+    <version>1.0</version>
+</dependency>
+```
+Or downloading the jar file ( http://search.maven.org/remotecontent?filepath=co/sepulveda/pongee/1.0/pongee-1.0-jar-with-dependencies.jar )
+
 ## Basic code
 ```java
 import co.sepulveda.pongee.Configuration;
@@ -11,7 +23,7 @@ public class Main {
 
     public static void main(String[] args) {
         Configuration conf = Configuration.create()
-                .withControllers("my.controllers");
+                .withPackageControllers("my.controllers");
         	    //name of package that contains the endpoints controllers
 
         new ServerPG(conf).listen();
