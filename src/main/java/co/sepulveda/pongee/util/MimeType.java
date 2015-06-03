@@ -32,11 +32,12 @@ public class MimeType {
             ext = fileInfo[fileInfo.length - 1];
         }
 
-        if (ext == null) {
+        String mimeType = types.get(ext);
+        if (ext == null || mimeType == null) {
             return "text/plain";
         }
 
-        return types.get(ext);
+        return mimeType;
     }
 
 }
