@@ -14,10 +14,10 @@ public enum HttpMethod {
     public static HttpMethod getMethod(String method) {
         if (method == null) return null;
 
-        if (method.equals("GET")) return _GET;
-        if (method.equals("POST")) return _POST;
-        if (method.equals("PUT")) return _PUT;
-        if (method.equals("DELETE")) return _DELETE;
+        if (method.toUpperCase().equals("GET")) return _GET;
+        if (method.toUpperCase().equals("POST")) return _POST;
+        if (method.toUpperCase().equals("PUT")) return _PUT;
+        if (method.toUpperCase().equals("DELETE")) return _DELETE;
 
         return null;
     }
