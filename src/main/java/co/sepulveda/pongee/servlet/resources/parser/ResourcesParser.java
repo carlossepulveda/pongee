@@ -30,7 +30,7 @@ public class ResourcesParser {
             addResources(allResources, packageResources);
         }
 
-        if (objectsControllers != null && objectsControllers.isEmpty()) {
+        if (objectsControllers != null && !objectsControllers.isEmpty()) {
             List<ResourceEntity> objectsResources = parseObjects(objectsControllers);
             addResources(allResources, objectsResources);
         }
@@ -38,7 +38,7 @@ public class ResourcesParser {
         return allResources;
     }
 
-    public static List<ResourceEntity> parsePackage(String packageName) {
+    private static List<ResourceEntity> parsePackage(String packageName) {
         Reflections reflections = new Reflections(packageName, new SubTypesScanner(false));
         Set<String> allControllersInPackage = reflections.getStore().getSubTypesOf(Object.class.getName());
 
@@ -73,7 +73,7 @@ public class ResourcesParser {
         return resources;
     }
 
-    public static List<ResourceEntity> parseObjects(List<Object> controllers) {
+    private static List<ResourceEntity> parseObjects(List<Object> controllers) {
         List<ResourceEntity> allResources = new ArrayList();
         for (Object controller : controllers) {
             List<ResourceEntity> resources = getResources(controller);
@@ -103,7 +103,7 @@ public class ResourcesParser {
         return resources;
     }
 
-    protected static void addResources(List<ResourceEntity> allResources, List<ResourceEntity> resources) {
+    private static void addResources(List<ResourceEntity> allResources, List<ResourceEntity> resources) {
         for (ResourceEntity resource : resources) {
             int i = allResources.indexOf(resource);
             if (i != -1) {
@@ -114,7 +114,7 @@ public class ResourcesParser {
         }
     }
 
-    protected static Class getClass(String classname) {
+    private static Class getClass(String classname) {
         try {
             return Class.forName(classname);
         } catch (Exception e) {
@@ -122,7 +122,7 @@ public class ResourcesParser {
         }
     }
 
-    protected static Object getInstance(Class clazz) {
+    private static Object getInstance(Class clazz) {
         try {
             return clazz.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
@@ -130,7 +130,7 @@ public class ResourcesParser {
         }
     }
 
-    protected static String buildAbsolutePath(String controllerPath, String methodPath) {
+    private static String buildAbsolutePath(String controllerPath, String methodPath) {
 
         String absolutePath = controllerPath;
         if (!methodPath.isEmpty()) {
@@ -140,7 +140,7 @@ public class ResourcesParser {
         return absolutePath;
     }
 
-    protected static ResourceEntity buildResource(HttpMethod httpMethod, String absolutePath, Object controller, Method method) {
+    private static ResourceEntity buildResource(HttpMethod httpMethod, String absolutePath, Object controller, Method method) {
         ResourceEntity resource = new ResourceEntity(absolutePath);
         MethodInfo methodInfo = new MethodInfo(controller, method);
         resource.addMethod(httpMethod, methodInfo);
@@ -148,7 +148,7 @@ public class ResourcesParser {
         return resource;
     }
 
-    protected static ResourceEntity getResource(Object controller, Method method) {
+    private static ResourceEntity getResource(Object controller, Method method) {
         Resource resourceAnnotation = (Resource) controller.getClass().getAnnotation(Resource.class);
         String controllerPath = resourceAnnotation.name();
 
