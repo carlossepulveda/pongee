@@ -10,17 +10,6 @@ import java.util.Map;
  */
 public class PathParser {
 
-    public static boolean isRootResource(String resource, String url) {
-        if (normalize(url).equals(normalize(resource))) {
-            return true;
-        }
-
-        String[] urlData = normalize(url).split("/");
-        resource = normalize(resource);
-
-        return resource.equals(urlData[0]);
-    }
-
     public static String[] getRegexPathAsArray(String path) {
         path = normalize(path);
         String[] pathData = path.split("/");
@@ -80,9 +69,5 @@ public class PathParser {
         }
 
         return aux;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(PathParser.getData("employees/3", "/employees/:id/"));
     }
 }
