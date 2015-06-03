@@ -84,10 +84,4 @@ public class ResourceEntity {
 
         return true;
     }
-
-    public static void main(String [] ar) {
-        ResourceEntity r1 = new ResourceEntity("/example/000000");
-        ResourceEntity r2 = new ResourceEntity("/example/:id");
-        System.out.println(r1.equals(r2));
-    }
 }
