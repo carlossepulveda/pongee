@@ -2,12 +2,9 @@ package co.sepulveda.pongee.servlet;
 
 import co.sepulveda.pongee.Configuration;
 import java.io.IOException;
-import java.util.Set;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.reflections.Reflections;
-import org.reflections.scanners.SubTypesScanner;
 
 /**
  *
@@ -22,7 +19,7 @@ public class ServletHandler extends HttpServlet {
     public ServletHandler(Configuration config) {
         this.config = config;
 
-        controllerExecutor = new ControllerExecutor(config.getPackageControllers(), config.getObjectControllers());
+        controllerExecutor = new ControllerExecutor(config.getControllersPackage(), config.getObjectControllers());
         staticExecutor = new StaticExecutor();
     }
 

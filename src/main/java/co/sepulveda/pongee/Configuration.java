@@ -11,7 +11,7 @@ public class Configuration {
 
     private int port = 3000;
 
-    private String packageControllers;
+    private String controllersPackage;
 
     private List<Object> objectControllers;
 
@@ -34,20 +34,20 @@ public class Configuration {
         return this;
     }
 
-    public String getPackageControllers() {
-        return packageControllers;
+    public String getControllersPackage() {
+        return controllersPackage;
     }
 
-    public void setPackageControllers(String packageControllers) {
-        this.packageControllers = packageControllers;
+    public void setControllersPackage(String controllersPackage) {
+        this.controllersPackage = controllersPackage;
     }
 
     public List<Object> getObjectControllers() {
         return objectControllers;
     }
 
-    public Configuration withPackageControllers(String controllers) {
-        setPackageControllers(controllers);
+    public Configuration withControllersPackage(String controllers) {
+        setControllersPackage(controllers);
         return this;
     }
 

@@ -25,11 +25,15 @@ public class ResourcesParser {
     public static List<ResourceEntity> parse(String packagename, List<Object> objectsControllers) {
         List<ResourceEntity> allResources = new ArrayList();
 
-        List<ResourceEntity> packageResources = parsePackage(packagename);
-        addResources(allResources, packageResources);
+        if (packagename != null && !packagename.isEmpty()) {
+            List<ResourceEntity> packageResources = parsePackage(packagename);
+            addResources(allResources, packageResources);
+        }
 
-        List<ResourceEntity> objectsResources = parseObjects(objectsControllers);
-        addResources(allResources, objectsResources);
+        if (objectsControllers != null && objectsControllers.isEmpty()) {
+            List<ResourceEntity> objectsResources = parseObjects(objectsControllers);
+            addResources(allResources, objectsResources);
+        }
 
         return allResources;
     }
