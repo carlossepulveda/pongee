@@ -7,7 +7,7 @@
     <packaging>jar</packaging>
     <name>Pongee Server</name>
     <description>A embedded server web</description>
-    <url>http://www.example.com/example-application</url>
+    <url>https://github.com/carlossepulveda/pongee</url>
     <licenses>
         <license>
             <name>The Apache License, Version 2.0</name>

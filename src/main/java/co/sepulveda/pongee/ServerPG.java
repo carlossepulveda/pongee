@@ -21,7 +21,7 @@ public class ServerPG {
 
     public ServerPG(String controllers, int port) {
         this.config = Configuration.create();
-        config.setPackageControllers(controllers);
+        config.setControllersPackage(controllers);
         config.setPort(port);
     }
 

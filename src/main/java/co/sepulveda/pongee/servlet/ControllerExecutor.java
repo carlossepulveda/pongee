@@ -34,7 +34,7 @@ public class ControllerExecutor {
         render(req, resp, responsePG);
     }
 
-    public Response execute_(HttpServletRequest req, HttpServletResponse resp) {
+    private Response execute_(HttpServletRequest req, HttpServletResponse resp) {
         try {
             ResourceEntity resource = getResource(req.getPathInfo());
             if (resource == null) {
@@ -90,7 +90,7 @@ public class ControllerExecutor {
     }
 
     private void printResources(List<ResourceEntity> resources) {
-        System.out.println("Registered Resources");
+        System.out.println("Registered Resources : ");
         for (ResourceEntity resource : resources) {
             for (Map.Entry<Enum, MethodInfo> entry : resource.getMethods().entrySet()) {
                 String httpMethod = entry.getKey().toString();
