@@ -33,6 +33,7 @@ public class StaticExecutor {
             return null;
         }
     }
+
     private void renderFile(File file, HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Response response = new Response();
         response.setFile(file.getPath());
