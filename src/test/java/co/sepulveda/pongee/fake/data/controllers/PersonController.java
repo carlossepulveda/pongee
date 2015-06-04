@@ -29,6 +29,10 @@ public class PersonController {
 
     @GET
     public Response index(Request request) {
-        return new Response().withStatus(200);
+        Response response = new Response();
+        response.setStatus(200);
+        response.addHeader("x-custom-header", "custom.value");
+
+        return response;
     }
 }
