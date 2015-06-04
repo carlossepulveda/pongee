@@ -8,3 +8,8 @@ PongeeExample
 PongeeFramework
 /target/
 nbactions.xml
+nb-configuration.xml
+pom.xml.releaseBackup
+release.properties
+release.properties~
+*.*~
