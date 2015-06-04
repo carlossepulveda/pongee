@@ -1,7 +1,9 @@
 package co.sepulveda.pongee;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -17,8 +19,11 @@ public class Configuration {
 
     private String staticPath = "/static";
 
+    private Map<String, String> headers;
+
     public Configuration() {
         this.objectControllers = new ArrayList();
+        this.headers = new HashMap();
     }
 
     public int getPort() {
@@ -71,6 +76,23 @@ public class Configuration {
 
     public Configuration withStaticPath(String staticPath) {
         setStaticPath(staticPath);
+        return this;
+    }
+
+    public Map<String, String> getHeaders() {
+        return headers;
+    }
+
+    public void setHeaders(Map<String, String> headers) {
+        this.headers = headers;
+    }
+
+    public void addHeader(String name, String value) {
+        headers.put(name, value);
+    }
+
+    public Configuration withHeader(String name, String value) {
+        addHeader(name, value);
         return this;
     }
 

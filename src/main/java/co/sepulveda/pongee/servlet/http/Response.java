@@ -93,8 +93,18 @@ public class Response {
         cookies.add(cookie);
     }
 
+    public Response withCookie(Cookie cookie) {
+        addCookie(cookie);
+        return this;
+    }
+
     public void addHeader(String name, String value) {
         headers.put(name, value);
+    }
+
+    public Response withHeader(String name, String value) {
+        addHeader(name, value);
+        return this;
     }
 
     public List<Cookie> getCookies() {
