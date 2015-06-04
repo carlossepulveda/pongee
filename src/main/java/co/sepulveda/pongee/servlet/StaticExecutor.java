@@ -5,7 +5,6 @@ import co.sepulveda.pongee.servlet.http.Response;
 import co.sepulveda.pongee.servlet.render.Render;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -26,9 +25,28 @@ public class StaticExecutor {
     }
 
     private File getFile(String pathFile) {
+        File file = getFileFromPath(pathFile);
+        if (file == null || !file.exists()) {
+            file = getFileFromCurrentThread(pathFile);
+        }
+
+        return file;
+    }
+
+    private File getFileFromPath(String pathFile) {
         try {
-            URL urlFile = Thread.currentThread().getContextClassLoader().getResource("static/" + pathFile);
-            return new File(urlFile.getFile());
+            return new File("static/" + pathFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private File getFileFromCurrentThread(String pathFile) {
+        try {
+            String path = "static/" + pathFile;
+            String absolutePath = Thread.currentThread().getContextClassLoader().getResource(path).getFile();
+            return new File(absolutePath);
         } catch (Exception e) {
             return null;
         }
