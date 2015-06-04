@@ -1,6 +1,7 @@
 package co.sepulveda.pongee.servlet.render;
 
 import co.sepulveda.pongee.servlet.http.Response;
+import co.sepulveda.pongee.util.MimeType;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -57,7 +58,19 @@ public class Render {
     }
 
     private void setContentType(HttpServletResponse response, Response responsePG) {
-        response.setContentType(responsePG.getContentType());
+        String contentType = responsePG.getContentType();
+        if (hasToUseFileMimeType(responsePG)) {
+            File file = new File(responsePG.getFile());
+            contentType = MimeType.getMiMeTypeFromFile(file);
+        }
+
+        response.setContentType(contentType);
+    }
+
+    private boolean hasToUseFileMimeType(Response response) {
+        return response.getFile() != null 
+                && !response.getFile().isEmpty()
+                && !response.isContentTypeSet();
     }
 
     private void setBody(HttpServletResponse response, Response responsePG) throws UnsupportedEncodingException, IOException {

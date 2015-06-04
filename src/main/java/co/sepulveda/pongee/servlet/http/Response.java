@@ -13,6 +13,7 @@ import org.codehaus.jackson.map.ObjectMapper;
  */
 public class Response {
 
+    private final static String DEFAULT_CONTENT_TYPE = "application/json";
     private int status;
     private String contentType;
     private String body;
@@ -24,12 +25,15 @@ public class Response {
 
     public Response() {
         status = 200;
-        contentType = "application/json";
         cookies = new ArrayList();
         headers = new HashMap();
     }
 
     public String getContentType() {
+        if (contentType == null) {
+            return DEFAULT_CONTENT_TYPE;
+        }
+
         return contentType;
     }
 
@@ -56,7 +60,7 @@ public class Response {
     }
 
     public String getFormattedBody() {
-        if (entity !=null && contentType.contains("json")) {
+        if (entity !=null && getContentType().contains("json")) {
             return toJSON(entity);
         }
 
@@ -120,6 +124,10 @@ public class Response {
     public Response withFile(String file) {
         setFile(file);
         return this;
+    }
+
+    public boolean isContentTypeSet() {
+        return contentType != null;
     }
 
     public static Response redirect(String url) {
