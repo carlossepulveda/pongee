@@ -79,6 +79,33 @@ public class RenderTest {
     }
 
     @Test
+    public void shouldRenderContentTypeFromFile() throws IOException {
+        Response response = new Response();
+        response.withFile("static/index.html");
+
+        HttpServletRequest httpRequest = mock(HttpServletRequest.class);
+        HttpServletResponse httpResponse = mock(HttpServletResponse.class);
+
+        Render render = new Render();
+        render.render(httpRequest, httpResponse, response);
+        verify(httpResponse).setContentType("text/html");
+    }
+
+    @Test
+    public void shouldRenderContentTypeFromResponse() throws IOException {
+        Response response = new Response();
+        response.setContentType("some/contenttype");
+        response.withFile("static/index.html");
+
+        HttpServletRequest httpRequest = mock(HttpServletRequest.class);
+        HttpServletResponse httpResponse = mock(HttpServletResponse.class);
+
+        Render render = new Render();
+        render.render(httpRequest, httpResponse, response);
+        verify(httpResponse).setContentType("some/contenttype");
+    }
+
+    @Test
     public void shouldRenderBody() throws IOException {
         Response response = new Response();
         response.setBody("This is a body example");
