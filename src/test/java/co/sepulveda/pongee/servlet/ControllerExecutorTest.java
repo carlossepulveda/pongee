@@ -17,6 +17,7 @@ package co.sepulveda.pongee.servlet;
 
 import java.io.IOException;
 import java.util.List;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.junit.Test;
@@ -37,6 +38,7 @@ public class ControllerExecutorTest {
         HttpServletRequest httpRequest = mock(HttpServletRequest.class);
         when(httpRequest.getPathInfo()).thenReturn("/person");
         when(httpRequest.getMethod()).thenReturn("GET");
+        when(httpRequest.getCookies()).thenReturn(new Cookie[0]);
 
         String controllerPackage = "co.sepulveda.pongee.fake.data.controllers";
         List<Object> objectControllers = null;
@@ -82,6 +84,7 @@ public class ControllerExecutorTest {
         HttpServletRequest httpRequest = mock(HttpServletRequest.class);
         when(httpRequest.getPathInfo()).thenReturn("/person");
         when(httpRequest.getMethod()).thenReturn("GET");
+        when(httpRequest.getCookies()).thenReturn(new Cookie[0]);
 
         String controllerPackage = "co.sepulveda.pongee.fake.data.controllers";
         List<Object> objectControllers = null;

@@ -19,6 +19,7 @@ import co.sepulveda.pongee.annotations.GET;
 import co.sepulveda.pongee.annotations.Resource;
 import co.sepulveda.pongee.servlet.http.Request;
 import co.sepulveda.pongee.servlet.http.Response;
+import javax.servlet.http.Cookie;
 
 /**
  *
@@ -32,6 +33,11 @@ public class PersonController {
         Response response = new Response();
         response.setStatus(200);
         response.addHeader("x-custom-header", "custom.value");
+        Cookie cookieTest = request.getCookie("test-cookie");
+        if (cookieTest != null) {
+            String responseBody = request.getBodyAsString() + " response " + cookieTest.getValue();
+            response.setBody(responseBody);
+        }
 
         return response;
     }
