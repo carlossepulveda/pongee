@@ -9,10 +9,10 @@ You can add the maven dependecy
 <dependency>
     <groupId>co.sepulveda</groupId>
     <artifactId>pongee</artifactId>
-    <version>1.0</version>
+    <version>1.2</version>
 </dependency>
 ```
-Or downloading the jar file ( http://search.maven.org/remotecontent?filepath=co/sepulveda/pongee/1.0/pongee-1.0-jar-with-dependencies.jar )
+Or downloading the jar file ( http://central.maven.org/maven2/co/sepulveda/pongee/1.1/pongee-1.1.jar )
 
 ## Basic code
 ```java
@@ -23,7 +23,7 @@ public class Main {
 
     public static void main(String[] args) {
         Configuration conf = Configuration.create()
-                .withPackageControllers("my.controllers");
+                .withControllersPackage("my.controllers.package");
         	    //name of package that contains the endpoints controllers
 
         new ServerPG(conf).listen();
@@ -132,3 +132,61 @@ public class Person {
 }
 ```
 Put in the browser [http://localhost:3000/resource](http://localhost:3000/resource)
+
+##Injecting controllers
+
+You can use a pre-initialized object as controller (some usages could be the bean injection). When you are initializing the configuration, you can use both ways (controllers package or object).
+
+```java
+import co.sepulveda.pongee.Configuration;
+import co.sepulveda.pongee.ServerPG;
+
+public class Main {
+
+    public static void main(String[] args) {
+        my.controllers.Test testController = new my.controllers.Test();
+        Configuration conf = Configuration.create()
+        	    .withController(testController);
+        	    //.withControllers(listOfControllers);
+
+        new ServerPG(conf).listen();
+    }
+}
+```
+
+##Implementing your integration tests
+
+
+
+```java
+package co.sepulveda.some.package.test;
+
+import co.sepulveda.pongee.Configuration;
+import co.sepulveda.pongee.servlet.http.HttpMethod;
+import junit.framework.Assert;
+import org.junit.Test;
+
+/**
+ *
+ * @author carlossepulveda
+ */
+public class SomeControllerTest {
+
+    @Test
+    public void shouldRender() throws Exception {
+        Configuration conf = new Configuration().withControllersPackage("controllers.package");
+        MockServer server = MockServer.build(conf);
+
+        MockRequest request = new MockRequest()
+                .withUrl("/person")
+                .withMethod(HttpMethod._GET)
+                .withContentType("text/plain")
+                .withBody("body");
+
+        MockResponse response = server.run(request);
+        Assert.assertNotNull(response);
+        Assert.assertEquals(200, response.getStatus());
+        Assert.assertEquals("your_response", response.getBodyAsString())
+    }
+}
+```
