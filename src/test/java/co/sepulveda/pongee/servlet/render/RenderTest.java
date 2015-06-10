@@ -155,16 +155,20 @@ public class RenderTest {
 
     @Test
     public void shouldRenderCookies() throws IOException {
-        Cookie cookieExample = new Cookie("name", "value");
+        Cookie responseCookie = new Cookie("name", "value");
         Response response = new Response();
-        response.addCookie(cookieExample);
+        response.addCookie(responseCookie);
 
+        Cookie[] requestCookies = new Cookie[] {new Cookie("request-cookie", "request-value-cookie")};
         HttpServletRequest httpRequest = mock(HttpServletRequest.class);
+        when(httpRequest.getCookies()).thenReturn(requestCookies);
         HttpServletResponse httpResponse = mock(HttpServletResponse.class);
 
         Render render = new Render();
         render.render(httpRequest, httpResponse, response);
-        verify(httpResponse).addCookie(eq(cookieExample));
+        verify(httpResponse, times(2)).addCookie(any(Cookie.class));
+        verify(httpResponse).addCookie(eq(requestCookies[0]));
+        verify(httpResponse).addCookie(responseCookie);
     }
 
     @Test
