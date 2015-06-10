@@ -17,8 +17,6 @@ package co.sepulveda.pongee.test;
 
 import co.sepulveda.pongee.Configuration;
 import co.sepulveda.pongee.servlet.http.HttpMethod;
-import java.io.IOException;
-import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import junit.framework.Assert;
 import org.junit.Test;
@@ -53,6 +51,9 @@ public class MockServerTest {
         Assert.assertEquals(200, response.getStatus());
         Assert.assertEquals("value", response.getHeader("x-header-x"));
         Assert.assertEquals(body + " response " + cookieValue, response.getBodyAsString());
+        Cookie responseCookie = response.getCookie("test-cookie");
+        Assert.assertNotNull(responseCookie);
+        Assert.assertEquals(cookieValue, responseCookie.getValue());
     }
 
     @Test
@@ -64,7 +65,8 @@ public class MockServerTest {
 
         MockServer server = MockServer.build(conf);
 
-        Cookie cookieTest = new Cookie("test-cookie", "cookie-value");
+        String cookieValue = "cookie-value";
+        Cookie cookieTest = new Cookie("test-cookie", cookieValue);
         MockRequest request = new MockRequest()
                 .withUrl("/some/not/found/resource")
                 .withMethod(HttpMethod._GET)
@@ -76,5 +78,8 @@ public class MockServerTest {
         Assert.assertNotNull(response);
         Assert.assertEquals(404, response.getStatus());
         Assert.assertEquals("value", response.getHeader("x-header-x"));
+        Cookie responseCookie = response.getCookie("test-cookie");
+        Assert.assertNotNull(responseCookie);
+        Assert.assertEquals(cookieValue, responseCookie.getValue());
     }
 }
