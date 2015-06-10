@@ -39,7 +39,7 @@ public class Render {
             setStatus(response, responsePG);
             setHeaders(response, responsePG);
             setContentType(response, responsePG);
-            setCookies(response, responsePG);
+            setCookies(request, response, responsePG);
             setBody(response, responsePG);
         } catch (Exception e) {
             renderInternalError(response);
@@ -87,8 +87,12 @@ public class Render {
         }
     }
 
-    private void setCookies(HttpServletResponse response, Response responsePG) {
+    private void setCookies(HttpServletRequest request, HttpServletResponse response, Response responsePG) {
         for (Cookie cookie : responsePG.getCookies()) {
+            response.addCookie(cookie);
+        }
+
+        for (Cookie cookie : request.getCookies()) {
             response.addCookie(cookie);
         }
     }

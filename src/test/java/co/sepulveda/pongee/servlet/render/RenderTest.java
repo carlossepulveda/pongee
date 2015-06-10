@@ -111,6 +111,7 @@ public class RenderTest {
         response.setBody("This is a body example");
 
         HttpServletRequest httpRequest = mock(HttpServletRequest.class);
+        when(httpRequest.getCookies()).thenReturn(new Cookie[0]);
         ServletOutputStream responseWriter = mock(ServletOutputStream.class);
         HttpServletResponse httpResponse = mock(HttpServletResponse.class);
         when(httpResponse.getOutputStream()).thenReturn(responseWriter);
@@ -128,6 +129,7 @@ public class RenderTest {
         response.setFile(urlFile.getFile());
 
         HttpServletRequest httpRequest = mock(HttpServletRequest.class);
+        when(httpRequest.getCookies()).thenReturn(new Cookie[0]);
         ServletOutputStream responseWriter = mock(ServletOutputStream.class);
         HttpServletResponse httpResponse = mock(HttpServletResponse.class);
         when(httpResponse.getOutputStream()).thenReturn(responseWriter);
